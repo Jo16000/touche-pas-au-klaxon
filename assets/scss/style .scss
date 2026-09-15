@@ -1,0 +1,31 @@
+// Définition de la palette de couleurs imposée par le brief
+$primary-light: #f1f8fc;
+$primary-main: #0074c7;
+$primary-dark: #00497c;
+$neutral-dark: #384050;
+$alert-danger: #cd2c2e;
+$alert-success: #82b864;
+
+// Surcharges des variables Bootstrap (si tu compiles avec Sass)
+$primary: $primary-main;
+$success: $alert-success;
+$danger: $alert-danger;
+
+// Import de Bootstrap (si tu utilises npm/scss) ou styles personnalisés
+body {
+    background-color: $primary-light;
+    color: $neutral-dark;
+}
+
+.navbar, .btn-primary {
+    background-color: $primary-main !important;
+    border-color: $primary-main !important;
+}
+
+.btn-success {
+    background-color: $alert-success !important;
+}
+
+.btn-danger {
+    background-color: $alert-danger !important;
+}

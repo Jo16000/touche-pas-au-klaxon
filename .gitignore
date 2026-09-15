@@ -1,0 +1,12 @@
+# Dépendances Composer
+/vendor/
+composer.phar
+
+# Fichiers de configuration IDE / Environnement
+.idea/
+.vscode/
+.env
+
+# Systèmes
+.DS_Store
+Thumbs.db
