@@ -20,6 +20,16 @@ class Agence extends AbstractModel
     }
 
     /**
+     * Met à jour une agence existante.
+     */
+    public function update(int $id, string $nom): bool
+    {
+        $db = $this->getDb();
+        $stmt = $db->prepare("UPDATE agences SET nom = :nom WHERE id = :id");
+        return $stmt->execute(['nom' => $nom, 'id' => $id]);
+    }
+
+    /**
      * Supprime une agence par son ID.
      */
     public function delete(int $id): bool

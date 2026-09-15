@@ -35,6 +35,55 @@ class AdminController extends AbstractController
         ]);
     }
 
+    public function createAgence(): void
+    {
+        $this->render('admin/agence-form', [
+            'title' => 'Créer une agence'
+        ]);
+    }
+
+    public function storeAgence(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nom = trim($_POST['nom_ville'] ?? '');
+            if (!empty($nom)) {
+                $agenceModel = new Agence();
+                $agenceModel->create($nom);
+            }
+            header('Location: ?action=admin-agencies');
+            exit;
+        }
+    }
+
+    public function editAgence(int $id): void
+    {
+        $agenceModel = new Agence();
+        $agence = $agenceModel->find($id);
+
+        if (!$agence) {
+            header('Location: ?action=admin-agencies');
+            exit;
+        }
+
+        $this->render('admin/agence-form', [
+            'title' => 'Modifier l\'agence',
+            'agence' => $agence
+        ]);
+    }
+
+    public function updateAgence(int $id): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nom = trim($_POST['nom_ville'] ?? '');
+            if (!empty($nom) && $id > 0) {
+                $agenceModel = new Agence();
+                $agenceModel->update($id, $nom);
+            }
+            header('Location: ?action=admin-agencies');
+            exit;
+        }
+    }
+
     public function rides(): void
     {
         $rideModel = new Ride();
@@ -79,7 +128,7 @@ class AdminController extends AbstractController
                 $userModel = new User();
                 $userModel->updateRole($userId, $newRole);
 
-                if (isset($_SESSION['user']) && (int)$_SESSION['user']['id'] === $userId) {
+                if (isset($_SESSION['user']) && $_SESSION['user']['id'] === $userId) {
                     $_SESSION['user']['role'] = strtoupper($newRole);
                 }
 
@@ -87,8 +136,8 @@ class AdminController extends AbstractController
             } else {
                 $_SESSION['flash_error'] = "Erreur lors de la mise à jour du rôle.";
             }
+            header('Location: ?action=admin-users');
+            exit;
         }
-        header('Location: ?action=admin-users');
-        exit;
     }
 }

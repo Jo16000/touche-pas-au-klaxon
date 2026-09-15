@@ -51,18 +51,29 @@ switch ($action) {
     case 'admin-dashboard':
         $adminController->dashboard();
         break;
-    case 'admin-agences':
     case 'admin-agencies':
         $adminController->agencies();
+        break;
+    case 'admin-agence-create':
+        $adminController->createAgence();
+        break;
+    case 'admin-agence-store':
+        $adminController->storeAgence();
+        break;
+    case 'admin-agence-edit':
+        $adminController->editAgence((int)($_GET['id'] ?? 0));
+        break;
+    case 'admin-agence-update':
+        $adminController->updateAgence((int)($_GET['id'] ?? 0));
+        break;
+    case 'admin-agence-delete':
+        $adminController->deleteAgence();
         break;
     case 'admin-rides':
         $adminController->rides();
         break;
     case 'admin-users':
         $adminController->users();
-        break;
-    case 'agence-delete':
-        $adminController->deleteAgence();
         break;
     case 'admin-update-role':
         $adminController->updateRole();
